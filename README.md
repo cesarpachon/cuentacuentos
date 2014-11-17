@@ -33,6 +33,18 @@ http://cordova.apache.org/docs/en/4.0.0//guide_cli_index.md.html#The%20Command-L
  sudo npm install -g cordova
 
 
+MMM.. probando con este tut:
+http://www.gaggl.com/2014/04/apache-cordova-development-environment-install-on-ubuntu/
 
+con descarga de:
+wget http://dl.google.com/android/android-sdk_r23.0.2-linux.tgz 
+
+luego, instalacion de addons (2)
+luego, instalacion de cordova con npm -g 
+
+
+
+ahora para crear el proyecto:
+http://cdn.chrislarson.me/blog/how-use-cordova-ubuntu-build-android-apps
 
 
