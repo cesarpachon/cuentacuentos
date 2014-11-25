@@ -49,3 +49,6 @@ var app = {
 };
 
 app.initialize();
+
+//hack
+app.onDeviceReady();
