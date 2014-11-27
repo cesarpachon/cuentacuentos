@@ -11,6 +11,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "jquery-mobile-bower":"latest"
+    "jquery-mobile-bower":"latest",
+    "jquery":"latest"
   }
 }

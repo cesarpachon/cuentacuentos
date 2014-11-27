@@ -6,18 +6,35 @@
         <meta name="msapplication-tap-highlight" content="no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Hello World</title>
+        <script type="text/javascript" src="lib/jquery.js"></script>
+        <script type="text/javascript" src="lib/jquery.mobile-1.4.2.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+
+        <div id="page_main" data-role="page">
+
+            <h1>main</h1>
+            <p>content of main</p>
+            <a href="#page_books">go to books</a>
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+
+        <div id="page_books" data-role="page">
+            <h1>books</h1>
+            <p>content of books</p>
+        </div>
+
+        <div id="page_tales" data-role="page">
+            <h1>tales</h1>
+            <p>content of tales</p>
+        </div>
+
+        <div id="page_tale" data-role="page">
+            <h1>tale</h1>
+            <p>content of tale</p>
+        </div>
+
+
     </body>
 </html>

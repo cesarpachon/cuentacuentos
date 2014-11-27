@@ -9,7 +9,10 @@ module.exports = function (grunt) {
         lib: {
           files: [
             {expand: true,
-             src: ['vendor/jquery-mobile-bower/js/jquery.mobile*.min.js'],
+             src: [
+               'vendor/jquery/jquery.js',
+               'vendor/jquery-mobile-bower/js/jquery.mobile-1.4.2.js'
+               ],
              flatten: true,
              dest: 'www/lib',
              filter: 'isFile'}
