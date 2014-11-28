@@ -1,0 +1,28 @@
+div#page_tale div#tale_header{
+  background-color: yellow;
+}
+
+div#page_tale div#page_list{
+ background-color: blue;
+  float: left;
+ width: 200px;
+}
+
+
+div#page_tale div#right_content{
+ background-color: red;
+}
+
+div#page_tale div#right_content div#active_page{
+ background-color: gray;
+}
+
+div#page_tale div#right_content div#sound{
+ background-color: cyan;
+}
+
+
+
+
+
+

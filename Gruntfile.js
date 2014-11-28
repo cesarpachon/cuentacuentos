@@ -27,10 +27,21 @@ module.exports = function (grunt) {
             //{expand: true, flatten: true, src: ['path/**'], dest: 'dest/', filter: 'isFile'},
           ],
         },
+        css:{
+          files:[
+            {expand: true,
+             src: [
+               'vendor/jquery-mobile-bower/css/jquery.mobile-1.4.2.css'
+               ],
+             flatten: true,
+             dest: 'www/css',
+             filter: 'isFile'}
+          ],
+        }
       },
   });
 
     grunt.loadNpmTasks('grunt-contrib-copy');
 
-            grunt.registerTask('make', ['copy:lib']);
+    grunt.registerTask('make', ['copy:lib', 'copy:css']);
 };
