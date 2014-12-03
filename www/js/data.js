@@ -18,7 +18,12 @@ CuentaCuentos.Data = (function(){
   //---public functions -----------
 
 
+	/**
+	* load the json database
+	*/
   Data.init = function(){
+
+
 
   };
 
