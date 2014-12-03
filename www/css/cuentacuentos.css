@@ -23,6 +23,17 @@ div#page_tale div#right_content div#sound{
 
 
 
+.book {
+  float: left;
+  margin: 5px;
+}
 
+.book image {
+  float: left;
+}
+
+.book p {
+
+}
 
 

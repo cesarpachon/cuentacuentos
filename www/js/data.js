@@ -1,17 +1,14 @@
 
 //global namespace
-var CuentaCuentos = {};
-
-
-CuentaCuentos.Data = (function(){
+var Cuentacuentos  = (function(){
   "use strict";
 
-  var Data = {};
+  var Cuentacuentos = {};
 
 
-  Data.books = [];
+  Cuentacuentos.books = [];
 
-  Data.tales = [];
+  //Data.tales = [];
 
 
 
@@ -21,17 +18,30 @@ CuentaCuentos.Data = (function(){
 	/**
 	* load the json database
 	*/
-  Data.init = function(){
+  Cuentacuentos.init = function(){
 
-
-
+    console.log("data init");
+    $.getJSON( "assets/cuentacuentos.json", function( data ) {
+      console.log("done!", data);
+      Cuentacuentos._parse_books(data);
+    });
   };
+
 
 
   //-- private functions ---
 
+  /**
+  * populates the Cuentacuentos.books array with instances of Book class.
+  */
+  Cuentacuentos._parse_books = function(data){
+    data.books.forEach(function(_book){
+      console.log(_book.id);
+      Cuentacuentos.books.push(new Cuentacuentos.Book(_book.id));
+    });
+  };
 
 
-  return Data;
+  return Cuentacuentos;
 
-})();
+})($);

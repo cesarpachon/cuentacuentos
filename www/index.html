@@ -20,19 +20,20 @@
 
             <h1>main</h1>
             <p>content of main</p>
-            <a href="#page_books">go to books</a>
+            <a id="goto_page_books" href="#" data-transition="slide" >go to books</a>
         </div>
 
         <div id="page_books" data-role="page">
             <h1>books</h1>
             <p>content of books</p>
-            <a href="#page_tales">a book</a>
+            <ul id="books"></ul>
+            <a href="#page_tales" data-transition="slide" >a book</a>
         </div>
 
         <div id="page_tales" data-role="page">
             <h1>tales</h1>
             <p>content of tales</p>
-            <a href="#page_tale">a tale</a>
+            <a href="#page_tale" data-transition="slide" >a tale</a>
         </div>
 
         <div id="page_tale" data-role="page">
@@ -58,7 +59,15 @@
 
 
     </body>
-<script type="text/javascript" src="js/index.js"></script>
+
+    <!--loading models (all this stuff is within Cuentacuentos namespace) -->
+    <script type="text/javascript" src="js/data.js"></script>
+    <script type="text/javascript" src="js/book.js"></script>
+
+    <!--loading views and controllers -->
+    <script type="text/javascript" src="js/page_books.js"></script>
+
+    <script type="text/javascript" src="js/index.js"></script>
 <!-- we put jquery mobile here because that is the way to catch mobileinit event-->
 <script type="text/javascript" src="lib/jquery.mobile-1.4.2.js"></script>
 
