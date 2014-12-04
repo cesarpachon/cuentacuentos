@@ -5,6 +5,7 @@ var PageBook = (function(){
   * @constructor
   */
   PageBook = function(){
+    this.current_book = null;
     Cuentacuentos._register(this);
     $("#page_book").on("click", ".tale", function(ev){
     console.log(ev.currentTarget.id);
@@ -23,11 +24,11 @@ var PageBook = (function(){
     $tales.empty();
 
     var self = this;
-    var book = Cuentacuentos.get_book(bookid);
+    this.current_book = Cuentacuentos.get_book(bookid);
 
-    //Cuentacuentos.books.forEach(function(book){
-    //  self.append_book($books, book);
-    //});
+    this.current_book.tales.forEach(function(tale){
+      self.append_tale($tales, tale);
+    });
 
      $(":mobile-pagecontainer").pagecontainer("change", "#page_book", { role: "page" , transition:"flip"});
 
@@ -36,15 +37,15 @@ var PageBook = (function(){
 
   PageBook.prototype.append_tale = function($tales, tale){
 
-/*    var _book = "<li class='book' id='"
-      +book.id+"'>"
-      +"<img src='"+book.get_page_pic_path(0)+"'>"
-      +"<p>"+book.id+"</p>"
+    var _tale = "<li class='tale' id='"
+      +tale.id+"'>"
+      +"<img src='"+this.current_book.get_page_pic_path(tale.pageini)+"'>"
+      +"<p>"+tale.title+"</p>"
       +"</li>";
-    var $book = $(_book);
-    $books.append($book);
-    $book.delay(Math.floor(Math.random()*2000)).fadeIn(Math.floor(Math.random()*1000));
-*/
+    var $tale = $(_tale);
+    $tales.append($tale);
+    $tale.delay(Math.floor(Math.random()*2000)).fadeIn(Math.floor(Math.random()*1000));
+
   };
 
 
