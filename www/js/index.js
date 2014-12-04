@@ -47,11 +47,12 @@ $(document).bind("mobileinit", function(ev) {
   Cuentacuentos.init();
 
   app.page_books = new PageBooks();
+  app.page_book = new PageBook();
 
 
   $("#goto_page_books").on("click", function(ev){
     app.page_books.enter();
-    $(":mobile-pagecontainer").pagecontainer("change", "#page_books", { role: "page" , transition:"flip"});
+
   });
 
   $( "#page_books" ).pagecontainer({
