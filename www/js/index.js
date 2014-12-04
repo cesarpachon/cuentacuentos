@@ -48,6 +48,7 @@ $(document).bind("mobileinit", function(ev) {
 
   app.page_books = new PageBooks();
   app.page_book = new PageBook();
+  app.page_tale = new PageTale();
 
 
   $("#goto_page_books").on("click", function(ev){

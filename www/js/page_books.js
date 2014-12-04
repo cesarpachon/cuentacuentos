@@ -4,7 +4,7 @@ var PageBooks = (function(){
   /**
   * @constructor
   */
-  PageBooks = function(){
+  var pageBooks = function(){
     Cuentacuentos._register(this);
     var self = this;
     $("#page_books").on("click", ".book", function(ev){
@@ -17,7 +17,7 @@ var PageBooks = (function(){
   /**
   * populate the books covers with an animation
   */
-  PageBooks.prototype.enter = function(){
+  pageBooks.prototype.enter = function(){
     var $page = $("#page_books");
     var $books = $page.find("#books");
     $books.empty();
@@ -33,7 +33,7 @@ var PageBooks = (function(){
   /**
   *
   */
-  PageBooks.prototype.append_book = function($books, book){
+  pageBooks.prototype.append_book = function($books, book){
     var _book = "<li class='book' id='"
       +book.id+"'>"
       +"<img src='"+book.get_page_pic_path(0)+"'>"
@@ -47,21 +47,13 @@ var PageBooks = (function(){
   /**
   *
   */
-  PageBooks.prototype.on_book_clicked = function(bookid){
+  pageBooks.prototype.on_book_clicked = function(bookid){
     console.log(bookid);
     Cuentacuentos._emit("show_book", bookid);
-    //app.page_books.enter();
-    ///$(":mobile-pagecontainer").pagecontainer("change", "#page_books", { role: "page" , transition:"flip"});
   };
 
 
-  /**
-  *
-  */
-  PageBooks.prototype.leave = function(){
-  };
 
-
-  return PageBooks;
+  return pageBooks;
 
 })($);

@@ -56,7 +56,7 @@ var Cuentacuentos  = (function(){
   Cuentacuentos._parse_tales = function(data){
     data.tales.forEach(function(_tale){
       var book = Cuentacuentos.books[_tale.book - 1];
-      var tale = new Cuentacuentos.Tale(_tale.id, _tale.title, _tale.pageini, _tale.pageend, _tale.next);
+      var tale = new Cuentacuentos.Tale(_tale.id, _tale.title, _tale.pagini, _tale.pagend, _tale.next);
       book.add_tale(tale);
       Cuentacuentos.tales.push(tale);
     });

@@ -4,11 +4,12 @@ var PageBook = (function(){
   /**
   * @constructor
   */
-  PageBook = function(){
+  var pageBook = function(){
     this.current_book = null;
     Cuentacuentos._register(this);
-    $("#page_book").on("click", ".tale", function(ev){
-    console.log(ev.currentTarget.id);
+    var self = this;
+    $("#page_book").on("click", ".book", function(ev){
+      self.on_tale_clicked(ev.currentTarget.id);
   });
 
   };
@@ -17,7 +18,7 @@ var PageBook = (function(){
   /**
   * populate the books covers with an animation
   */
-  PageBook.prototype.on_cmd_show_book = function(bookid){
+  pageBook.prototype.on_cmd_show_book = function(bookid){
     console.log("PageBook on_cmd_show_book " + bookid);
     var $page = $("#page_book");
     var $tales = $page.find("#tales");
@@ -35,9 +36,12 @@ var PageBook = (function(){
   };
 
 
-  PageBook.prototype.append_tale = function($tales, tale){
+  /**
+  *
+  */
+  pageBook.prototype.append_tale = function($tales, tale){
 
-    var _tale = "<li class='tale' id='"
+    var _tale = "<li class='book' id='"
       +tale.id+"'>"
       +"<img src='"+this.current_book.get_page_pic_path(tale.pageini)+"'>"
       +"<p>"+tale.title+"</p>"
@@ -48,12 +52,16 @@ var PageBook = (function(){
 
   };
 
-
-
-  PageBook.prototype.leave = function(){
+ /**
+  *
+  */
+  pageBook.prototype.on_tale_clicked = function(taleid){
+    console.log(taleid);
+    Cuentacuentos._emit("show_tale", this.current_book, taleid);
   };
 
 
-  return PageBook;
+
+  return pageBook;
 
 })($);

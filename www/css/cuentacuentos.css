@@ -2,7 +2,7 @@ div#page_tale div#tale_header{
   background-color: yellow;
 }
 
-div#page_tale div#page_list{
+div#page_tale ul#pages{
  background-color: blue;
   float: left;
  width: 200px;

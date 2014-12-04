@@ -33,13 +33,18 @@
   /**
    * emit a command to the collection of listeners.
    * @param cmd {string} name of the command
-   * @param args {obj} optional parameters
+   * you can pass any number of parameters. they are going to be passed down without the fist one (command name)
    * @private
    */
-  Cuentacuentos._emit = function(cmd, args){
+  Cuentacuentos._emit = function(cmd){
+
+    console.log(arguments);
+    [].shift.apply(arguments);
+    var _arguments = arguments;
     _listeners.forEach(function(r){
-      if(r["on_cmd_"+cmd]){
-        r["on_cmd_"+cmd](args);
+      var cb = r["on_cmd_"+cmd];
+      if(cb){
+        cb.apply(r, _arguments);
       }
     });
   };
