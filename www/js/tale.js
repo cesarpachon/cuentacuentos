@@ -1,18 +1,16 @@
-CuentaCuentos.Book = (function(){
+Cuentacuentos.Tale = (function(){
 
   /**
   @constructor
   */
-  var Book = function(id){
+  var Tale = function(id, title, pageini, pageend, next){
     this.id = id;
-    this.tales  = [];
+    this.pageini  = pageini;
+    this.pageend = pageend;
+    this.title = title;
+    this.next = next;
   };
 
-
-  Book.prototype.addTale = function(tale){
-    this.tales.push(tale);
-  };
-
-  return Book;
+  return Tale;
 
 })();

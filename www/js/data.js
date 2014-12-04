@@ -8,7 +8,7 @@ var Cuentacuentos  = (function(){
 
   Cuentacuentos.books = [];
 
-  //Data.tales = [];
+  Cuentacuentos.tales = [];
 
 
 
@@ -55,13 +55,23 @@ var Cuentacuentos  = (function(){
   */
   Cuentacuentos._parse_tales = function(data){
     data.tales.forEach(function(_tale){
-      var book = Cuentacuentos.books[_tale.id - 1];
-      var tale = new Tale(_tale.);
+      var book = Cuentacuentos.books[_tale.book - 1];
+      var tale = new Cuentacuentos.Tale(_tale.id, _tale.title, _tale.pageini, _tale.pageend, _tale.next);
+      book.add_tale(tale);
+      Cuentacuentos.tales.push(tale);
     });
   };
 
 
 
+  /**
+  * returns a string with left-padding with zeroes
+  */
+  Cuentacuentos._pad = function(num){
+    var s = num+"";
+    while (s.length < 3) s = "0" + s;
+    return s;
+  };
 
 
   return Cuentacuentos;
