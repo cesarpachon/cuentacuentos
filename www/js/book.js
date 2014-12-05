@@ -28,6 +28,16 @@ Cuentacuentos.Book = (function(){
     return "assets/"+this.id+"/"+this.id+"-"+Cuentacuentos._pad(page)+".jpg";
   };
 
+
+ /**
+  * returns the path for the audio of the given tale
+  */
+  Book.prototype.get_audio_path = function(tale){
+    return "assets/"+this.id+"/"+tale.id+".mp3";
+  };
+
+
+
   /**
   *
   */

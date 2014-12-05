@@ -9,9 +9,9 @@ var PageTale = (function(){
     this.current_book = null;
 
     var self = this;
-    /*$("#page_tale").on("click", ".book", function(ev){
-      self.on_book_clicked(ev.currentTarget.id);
-  });*/
+    $("#page_tale").on("click", ".book", function(ev){
+      self.view_page(ev.currentTarget.id);
+  });
 
   };
 
@@ -36,11 +36,9 @@ var PageTale = (function(){
       this.append_page($pages, i);
     };
 
+    this.load_audio();
 
-    //load the first page of the tale
     this.view_page(this.current_tale.pageini);
-
-    //load the audio
 
 
     $(":mobile-pagecontainer").pagecontainer("change", "#page_tale", { role: "page" , transition:"flip"});
@@ -52,7 +50,6 @@ var PageTale = (function(){
      var $page = $("#page_tale");
      var $active_page_img = $page.find("img#active_page_img");
      var pagepath = this.current_book.get_page_path(page);
-    console.log("pagepath:", pagepath);
     $active_page_img.attr("src", pagepath);
 
   };
@@ -74,8 +71,12 @@ var PageTale = (function(){
   /**
   *
   */
-  pageTale.prototype.on_page_clicked = function(bookid){
-    console.log(bookid);
+  pageTale.prototype.load_audio  = function(){
+     var $page = $("#page_tale");
+     var $audio = $page.find("audio");
+     var audiopath = this.current_book.get_audio_path(this.current_tale);
+    console.log("audiopath:", audiopath);
+    $audio.attr("src", audiopath);
   };
 
 
