@@ -8,7 +8,7 @@
   "moduleType": [
     "amd"
   ],
-  "license": "MIT",
+  "license": "Affero GPL v3",
   "private": true,
   "dependencies": {
     "jquery-mobile-bower":"latest",
