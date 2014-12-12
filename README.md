@@ -51,7 +51,7 @@ http://www.gaggl.com/2014/04/apache-cordova-development-environment-install-on-u
 ahora para crear el proyecto:
 http://cdn.chrislarson.me/blog/how-use-cordova-ubuntu-build-android-apps
 
-hay que agregar ANDROID_PATH al bashrc: 
+hay que agregar ANDROID_PATH al bashrc:
 
 vim ~/.bashrc
 y agregar:
@@ -67,4 +67,45 @@ android create avd -n hello -t 1
 
 para ejecutar el emulador:
 cordova emulate android
+----
+ALMACENAMIENTO EXTERNO: SDCARD
+la carpeta de assets es demasiado grande! lo mejor sera accederla desde el almacenamiento externo (SD).
+para ello se necesita este plugin:
+http://plugins.cordova.io/#/package/org.apache.cordova.file
+y se usaria la opcion cordova.file.externalDataDirectory
+
+como instalar el plugin?
+http://cordova.apache.org/docs/en/3.4.0/guide_cli_index.md.html#The%20Command-Line%20Interface_add_plugin_features
+
+cordova plugin add org.apache.cordova.file
+
+(luego de instalar, queda almacenado en {project}/plugins/org.apache.cordova.file/ )
+
+uso del plugin.. en la doc referencian esta pagina:
+http://www.html5rocks.com/en/tutorials/file/filesystem/
+
+---
+EMULACION DE SD-CARD
+ya tenemos el plugin para acceder al filesystem, pero como emular la tarjeta SD?
+http://www.android-app-market.com/how-to-emulate-and-use-sd-card-for-the-android-emulator.html
+
+cd /temp
+mksdcard -l mysdcard01 4G mysdcard01.img
+
+esto crea un archivo de 4GB en /temp. ahora, como agregarle archivos a esa imagen?
+vamos a tratar el paso 3c de aca:
+http://www.redips.net/android/emulator-sd-card-image/
+cd /tmp
+mkdir mnt
+sudo mount -t vfat -o rw,uid=1000,gid=1000 /home/cesar/temp/mysdcard01.img mnt
+listo, deberia estar en /tmp/mnt/
+copiando archivos normalmente..
+los archivos aparecen en /tmp/mnt. ahora desmontar, si todo es ok ya no deberian verse ahí.
+cd .. (importante! si no se sale de la carpeta, sale error de dispositivo ocupado)
+ sudo umount /tmp/mnt
+
+----
+
+
+
 

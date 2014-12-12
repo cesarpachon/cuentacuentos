@@ -16,15 +16,15 @@ var Cuentacuentos  = (function(){
 
 
 	/**
-	* load the json database
+	* parse the json database.
 	*/
-  Cuentacuentos.init = function(){
+  Cuentacuentos.init = function(data){
 
     console.log("data init");
-    $.getJSON( "assets/cuentacuentos.json", function( data ) {
+    //$.getJSON( "assets/cuentacuentos.json", function( data ) {
       Cuentacuentos._parse_books(data);
       Cuentacuentos._parse_tales(data);
-    });
+    //});
   };
 
 

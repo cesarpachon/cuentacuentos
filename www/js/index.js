@@ -15,11 +15,17 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-       // app.receivedEvent('deviceready');
+       app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        /*var parentElement = document.getElementById(id);
+
+      //data may come as jquery ajax call or from the device external storage system..
+
+
+      Cuentacuentos.init(var);
+
+      /*var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
 
@@ -34,7 +40,7 @@ var app = {
 app.initialize();
 
 //hack
-app.onDeviceReady();
+//app.onDeviceReady();
 
 
 $(document).bind("mobileinit", function(ev) {
@@ -43,8 +49,6 @@ $(document).bind("mobileinit", function(ev) {
   //$.mobile.defaultPageTransition= "slide";
   //$.mobile.toolbar.prototype.options.addBackBtn = true;
   //$.mobile.toolbar.prototype.options.backBtnText = "Back";
-
-  Cuentacuentos.init();
 
   app.page_books = new PageBooks();
   app.page_book = new PageBook();
