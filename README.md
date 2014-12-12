@@ -106,15 +106,13 @@ cd .. (importante! si no se sale de la carpeta, sale error de dispositivo ocupad
  sudo umount /tmp/mnt
 
 ----
-probando..
-si el emulador se corre sin pasarle la ruta a la sdcard:
-cordova emulate android
+para que la SDcard se cargue al lanzar el emulador, hay que entrar a la herramienta de administracion de android y configurarlo:
 
-NOTA: hay que usar el comando
-cordova build
-
-no parece reconocer este comando:
-cordova emulate android -sdcard [path to img]
+type android
+17:16 < muratsu> from tools go to AVD manager
+17:16 < muratsu> if you dont have an image create the image
+17:16 < muratsu> otherwise edit
+17:16 < muratsu> on SD Card section put your sd card image
 
 
 
