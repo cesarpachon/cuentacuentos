@@ -21,10 +21,9 @@ var Cuentacuentos  = (function(){
   Cuentacuentos.init = function(data){
 
     console.log("data init");
-    //$.getJSON( "assets/cuentacuentos.json", function( data ) {
-      Cuentacuentos._parse_books(data);
+    Cuentacuentos._parse_books(data);
       Cuentacuentos._parse_tales(data);
-    //});
+
   };
 
 

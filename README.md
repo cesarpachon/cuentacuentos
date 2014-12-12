@@ -65,9 +65,10 @@ para agregar el emulador al proyecto:
 cordova platform add android
 android create avd -n hello -t 1
 
+-------------------------------------
 para ejecutar el emulador:
 cordova emulate android
-----
+------------------------------------
 ALMACENAMIENTO EXTERNO: SDCARD
 la carpeta de assets es demasiado grande! lo mejor sera accederla desde el almacenamiento externo (SD).
 para ello se necesita este plugin:
@@ -105,6 +106,16 @@ cd .. (importante! si no se sale de la carpeta, sale error de dispositivo ocupad
  sudo umount /tmp/mnt
 
 ----
+probando..
+si el emulador se corre sin pasarle la ruta a la sdcard:
+cordova emulate android
+
+NOTA: hay que usar el comando
+cordova build
+
+no parece reconocer este comando:
+cordova emulate android -sdcard [path to img]
+
 
 
 

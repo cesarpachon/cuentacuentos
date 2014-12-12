@@ -22,8 +22,55 @@ var app = {
 
       //data may come as jquery ajax call or from the device external storage system..
 
+      //$.getJSON( "assets/cuentacuentos.json", function( data ) {
+      //});
+      var data;
+      //cordova.file.externalRootDirectory/
+      var datapath = "cuentacuentos/cuentacuentos.json";
 
-      Cuentacuentos.init(var);
+      _log("before querying filesystem");
+
+      window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+
+
+
+     function onFail(message) {
+      _log('Failed because: ' + message);
+    }
+
+       function gotFS(fileSystem) {
+         _log("gotFs ..", fileSystem);
+        fileSystem.root.getFile(datapath, {create: false}, gotFileEntry, fail);
+    }
+
+       function gotFileEntry(fileEntry) {
+         _log("gotFileEntry ..", fileEntry);
+        fileEntry.file(gotFile, fail);
+    }
+
+        function gotFile(file){
+         _log("gotFile .." + file);
+        readDataUrl(file);
+    }
+
+        function readDataUrl(file) {
+         _log("readDataUrl .." + file);
+           var reader = new FileReader();
+           reader.onloadend = function(evt) {
+           _log("Read as data URL");
+           _log(evt.target.result);
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function fail(evt) {
+        _log(evt.target.error.code);
+    }
+
+
+      window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, onFail);
+
+      //Cuentacuentos.init(data);
 
       /*var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
@@ -44,7 +91,7 @@ app.initialize();
 
 
 $(document).bind("mobileinit", function(ev) {
-  console.log("mobile init!");
+  _log("mobile init!");
   //here.. general configuration for jquery mobile, like apply themes
   //$.mobile.defaultPageTransition= "slide";
   //$.mobile.toolbar.prototype.options.addBackBtn = true;
@@ -62,11 +109,21 @@ $(document).bind("mobileinit", function(ev) {
 
   $( "#page_books" ).pagecontainer({
     load: function( event, ui ) {
-      console.log(" books loaded!" );
+     _log(" books loaded!" );
     }
   });
 
 
 });
 
+var _logbuffer = "";
+
+/**
+* temp utilitary function. append a p tag to the DOM
+*/
+_log  = function(msg){
+  console.log(msg);
+  _logbuffer += "<p>"+msg+"</p>";
+  $("div#log").html(_logbuffer);
+};
 
