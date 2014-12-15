@@ -1,4 +1,7 @@
 var app = {
+
+  filesystem: null,
+
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -20,12 +23,11 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
 
+      var self = this;
+
       //data may come as jquery ajax call or from the device external storage system..
 
-      //$.getJSON( "assets/cuentacuentos.json", function( data ) {
-      //});
       var data;
-      //cordova.file.externalRootDirectory/
       var datapath = "cuentacuentos/cuentacuentos.json";
 
       _log("before querying filesystem");
@@ -39,8 +41,9 @@ var app = {
     }
 
        function gotFS(fileSystem) {
+         self.filesystem = fileSystem;
          _log("gotFs ..", fileSystem);
-        fileSystem.root.getFile(datapath, {create: false}, gotFileEntry, fail);
+        self.filesystem.root.getFile(datapath, {create: false}, gotFileEntry, fail);
     }
 
        function gotFileEntry(fileEntry) {
@@ -58,30 +61,40 @@ var app = {
            var reader = new FileReader();
            reader.onloadend = function(evt) {
            _log("Read as data URL");
-           _log(evt.target.result);
+           //_log(evt.target.result);
+            Cuentacuentos.init(JSON.parse(evt.target.result));
         };
-        reader.readAsDataURL(file);
+        reader.readAsText(file);
     }
 
     function fail(evt) {
         _log(evt.target.error.code);
     }
 
-
       window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, onFail);
 
-      //Cuentacuentos.init(data);
+    },
 
-      /*var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+  /**
+  * returns the dataasURL of the given resource. assumes that this.filesystem is initializated
+  */
+  getResource: function(url, cbdone){
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+    console.log("index.js getResource "+ url);
 
-        console.log('Received Event: ' + id);
-        */
-    }
+    function _error(evt){_log(JSON.stringify(evt));};
+
+    this.filesystem.root.getFile(url, {create: false}, function(entry){
+      entry.file(function(file){
+        var reader = new FileReader();
+        reader.onloadend = function(evt){
+          cbdone(evt.target.result);
+        }
+        reader.readAsDataURL(file);
+      }, _error);
+    }, _error);
+  }
+
 };
 
 app.initialize();
@@ -103,6 +116,7 @@ $(document).bind("mobileinit", function(ev) {
 
 
   $("#goto_page_books").on("click", function(ev){
+    _log("go to page books!");
     app.page_books.enter();
 
   });

@@ -18,14 +18,14 @@ Cuentacuentos.Book = (function(){
   * returns the pic path for the given page
   */
   Book.prototype.get_page_pic_path = function(page){
-    return "assets/"+this.id+"/pic"+this.id+"-"+Cuentacuentos._pad(page)+".jpg";
+    return "cuentacuentos/"+this.id+"/pic"+this.id+"-"+Cuentacuentos._pad(page)+".jpg";
   };
 
   /**
   * returns the path for the given page in high res
   */
   Book.prototype.get_page_path = function(page){
-    return "assets/"+this.id+"/"+this.id+"-"+Cuentacuentos._pad(page)+".jpg";
+    return "cuentacuentos/"+this.id+"/"+this.id+"-"+Cuentacuentos._pad(page)+".jpg";
   };
 
 
@@ -33,7 +33,7 @@ Cuentacuentos.Book = (function(){
   * returns the path for the audio of the given tale
   */
   Book.prototype.get_audio_path = function(tale){
-    return "assets/"+this.id+"/"+tale.id+".mp3";
+    return "cuentacuentos/"+this.id+"/"+tale.id+".mp3";
   };
 
 

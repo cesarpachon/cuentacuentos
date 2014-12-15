@@ -108,13 +108,26 @@ cd .. (importante! si no se sale de la carpeta, sale error de dispositivo ocupad
 ----
 para que la SDcard se cargue al lanzar el emulador, hay que entrar a la herramienta de administracion de android y configurarlo:
 
+(me dieron estas instrucciones en IRC)
 type android
-17:16 < muratsu> from tools go to AVD manager
-17:16 < muratsu> if you dont have an image create the image
-17:16 < muratsu> otherwise edit
-17:16 < muratsu> on SD Card section put your sd card image
+from tools go to AVD manager
+if you dont have an image create the image
+otherwise edit
+on SD Card section put your sd card image
+---
+funciona. podemos leer un archivo json desde la SDCARD!
+pero.. como indicarle a un tag IMG que la ruta de una imagen la debe buscar en la SDCARD?
 
+parece que hay que usar getDataAsURL y el resultado se le pasa a img.src.
 
+--
+some error.. lets try this:
+cordova plugin add org.apache.cordova.console
+
+and run this:
+adb logcat CordovaLog:D "*:S"
+adb logcat CordovaLog:V "*:S"
+(in zhell requires quotes around *:S)
 
 
 

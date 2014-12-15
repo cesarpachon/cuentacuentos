@@ -34,14 +34,18 @@ var PageBooks = (function(){
   *
   */
   pageBooks.prototype.append_book = function($books, book){
-    var _book = "<li class='book' id='"
-      +book.id+"'>"
-      +"<img src='"+book.get_page_pic_path(0)+"'>"
-      +"<p>"+book.id+"</p>"
-      +"</li>";
-    var $book = $(_book);
-    $books.append($book);
-    $book.delay(Math.floor(Math.random()*2000)).fadeIn(Math.floor(Math.random()*1000));
+    console.log("pageBooks.append_book "+ book.id);
+    app.getResource(book.get_page_pic_path(0), function(imgdata){
+      console.log("pageBooks.append_book "+ book.id + " loaded!");
+      var _book = "<li class='book' id='"
+        +book.id+"'>"
+        +"<img src='"+imgdata+"'>"
+        +"<p>"+book.id+"</p>"
+        +"</li>";
+      var $book = $(_book);
+      $books.append($book);
+      $book.fadeIn(Math.floor(Math.random()*1000));
+    });
   };
 
   /**
@@ -56,4 +60,4 @@ var PageBooks = (function(){
 
   return pageBooks;
 
-})($);
+})();
