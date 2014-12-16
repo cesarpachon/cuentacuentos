@@ -129,5 +129,9 @@ adb logcat CordovaLog:D "*:S"
 adb logcat CordovaLog:V "*:S"
 (in zhell requires quotes around *:S)
 
+el emulador se puede dejar corriendo, cada vez que se ejecuta "cordova emulate android" se realiza un despliegue al emulador que esta activo.
+
+el comando adb tambien se puede activar en cualquier momento. 
+
 
 
