@@ -97,10 +97,25 @@ var app = {
 
 };
 
+
+
 app.initialize();
 
 //hack
 //app.onDeviceReady();
+
+//let's try to detect if running on browser..
+if(!window.cordova){
+
+  $.ajax({
+    url: "assets/cuentacuentos.json",
+    context: document.body
+    }).done(function() {
+    $( this ).addClass( "done" );
+    });
+
+  Cuentacuentos.init(JSON.parse());
+}
 
 
 $(document).bind("mobileinit", function(ev) {
