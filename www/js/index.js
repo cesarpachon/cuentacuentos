@@ -76,13 +76,19 @@ var app = {
     },
 
   /**
-  * returns the dataasURL of the given resource. assumes that this.filesystem is initializated
+  * returns the dataasURL of the given resource. (it is the binary content of the file as a encoded string)
+  it  this.filesystem is not  initializated, assumes it is in browser mode and return the url passed as input.
   */
   getResource: function(url, cbdone){
 
     console.log("index.js getResource "+ url);
 
     function _error(evt){_log(JSON.stringify(evt));};
+
+    if(!this.filesystem){
+      cbdone(url);
+      return;
+    }
 
     this.filesystem.root.getFile(url, {create: false}, function(entry){
       entry.file(function(file){
@@ -107,14 +113,10 @@ app.initialize();
 //let's try to detect if running on browser..
 if(!window.cordova){
 
-  $.ajax({
-    url: "assets/cuentacuentos.json",
-    context: document.body
-    }).done(function() {
-    $( this ).addClass( "done" );
-    });
 
-  Cuentacuentos.init(JSON.parse());
+  $.getJSON( "cuentacuentos/cuentacuentos.json", function(data){
+    Cuentacuentos.init(data);
+  });
 }
 
 
