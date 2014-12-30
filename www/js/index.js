@@ -125,6 +125,21 @@ $(document).bind("mobileinit", function(ev) {
   //$.mobile.toolbar.prototype.options.addBackBtn = true;
   //$.mobile.toolbar.prototype.options.backBtnText = "Back";
 
+  //disabling transitions?
+  $.mobile.defaultPageTransition   = 'none';
+  $.mobile.defaultDialogTransition = 'none';
+
+  $( ":mobile-pagecontainer" ).pagecontainer({
+    beforechange: function( event, ui ) {console.log("beforechange"+ JSON.stringify(ui));},
+    beforehide: function( event, ui ) {console.log("beforechange"+ JSON.stringify(ui));},
+    beforeload: function( event, ui ) {console.log("beforechange"+ JSON.stringify(ui));},
+    beforeshow: function( event, ui ) {console.log("beforechange"+ JSON.stringify(ui));},
+    beforetransition: function( event, ui ) {console.log("beforechange"+ JSON.stringify(ui));},
+    change: function( event, ui ) {console.log("beforechange"+ JSON.stringify(ui));},
+    changefailed: function( event, ui ) {console.log("beforechange"+ JSON.stringify(ui));}
+    });
+
+
   app.page_books = new PageBooks();
   app.page_book = new PageBook();
   app.page_tale = new PageTale();
