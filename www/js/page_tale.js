@@ -28,12 +28,18 @@ var PageTale = (function(){
 
     var $page = $("#page_tale");
 
+    $page.find("h1").html(this.current_tale.title);
+
     //populate the pages preview
     var $pages = $page.find("#pages");
     $pages.empty();
 
     for(var i=this.current_tale.pageini; i<=this.current_tale.pageend; ++i){
       this.append_page($pages, i);
+    };
+
+    if(this.current_tale.next){
+      $pages.append("<li class='next' >Continúa!</li>");
     };
 
     this.load_audio();

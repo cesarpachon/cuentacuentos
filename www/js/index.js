@@ -169,7 +169,7 @@ var _logbuffer = "";
 */
 _log  = function(msg){
   console.log(msg);
-  _logbuffer += "<p>"+msg+"</p>";
-  $("div#log").html(_logbuffer);
+  //_logbuffer += "<p>"+msg+"</p>";
+  //$("div#log").html(_logbuffer);
 };
 

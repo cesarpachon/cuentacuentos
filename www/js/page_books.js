@@ -26,12 +26,10 @@ var PageBooks = (function(){
     Cuentacuentos.books.forEach(function(book){
       self.append_book($books, book);
     });
-    console.log("pageBooks.enter: invoking change");
-    console.log($(":mobile-pagecontainer")[0]);
 
     //$.mobile.changePage("#page_books");
-    //$(":mobile-pagecontainer").pagecontainer("change", "#page_books", { role: "page" , transition:"flip"});
-    $(":mobile-pagecontainer").pagecontainer("change", $("#page_books"));
+    $(":mobile-pagecontainer").pagecontainer("change", "#page_books", { role: "page" , transition:"flip"});
+     //$(":mobile-pagecontainer").pagecontainer("change", $("#page_books"));
   };
 
   /**

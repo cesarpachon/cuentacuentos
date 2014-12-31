@@ -22,27 +22,26 @@
            </div>
              <div role="main" class="ui-content">
             <p>content of main3</p>
-            <a id="goto_page_books" href="#" data-transition="slide" >go to books</a>
+            <a id="goto_page_books" href="#" data-transition="slide" >Ir a los cuentos!</a>
             <div id="log"></div>
             </div>
         </div>
 
         <div id="page_books" data-role="page">
            <div data-role="header">
-            <h1>books</h1>
+            <h1>Cuentacuentos</h1>
            </div>
              <div role="main" class="ui-content">
-            <p>content of books</p>
             <ul id="books"></ul>
             </div>
         </div>
 
-        <div id="page_book" data-role="page">
+        <div id="page_book" data-role="page" data-add-back-btn="true" data-back-btn-text="ver todos los cuentacuentos" >
            <div data-role="header">
             <h1>Book</h1>
+            <a href="#page_books" data-transition="slide" >Ver libros</a>
            </div>
              <div role="main" class="ui-content">
-            <p>content of book</p>
             <ul id="tales"></ul>
             </div>
         </div>
@@ -50,6 +49,7 @@
         <div id="page_tale" data-role="page">
             <div id="tale_header" data-role="header">
             <h1>tale</h1>
+            <a href="#page_book" data-transition="slide" >Ver cuentos</a>
            </div>
             <div role="main" class="ui-content">
             <ul id="pages">

@@ -51,6 +51,13 @@ Cuentacuentos.Book = (function(){
   };
 
 
+  /**
+  *
+  */
+  Book.prototype.get_title = function(){
+    return "cuentacuentos "+this.id.substr("cuentacuentos".length);
+  };
+
 
 
   return Book;

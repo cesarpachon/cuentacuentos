@@ -27,6 +27,8 @@ var PageBook = (function(){
     var self = this;
     this.current_book = Cuentacuentos.get_book(bookid);
 
+    $page.find("h1").html(this.current_book.get_title());
+
     this.current_book.tales.forEach(function(tale){
       self.append_tale($tales, tale);
     });
@@ -48,7 +50,8 @@ var PageBook = (function(){
       +"</li>";
     var $tale = $(_tale);
     $tales.append($tale);
-    $tale.delay(Math.floor(Math.random()*2000)).fadeIn(Math.floor(Math.random()*1000));
+    $tale.fadeIn(Math.floor(Math.random()*1000));
+    //$tale.delay(Math.floor(Math.random()*2000)).fadeIn(Math.floor(Math.random()*1000));
 
   };
 
