@@ -2,23 +2,34 @@ div#page_tale div#tale_header{
   background-color: yellow;
 }
 
-div#page_tale ul#pages{
- background-color: blue;
-  float: left;
- width: 200px;
-}
 
 
 div#page_tale div#right_content{
- background-color: red;
+  background-color: red;
+  height: 100%;
 }
 
-div#page_tale div#right_content div#active_page{
- background-color: gray;
+div#page_tale div#right_content ul#pages{
+  float: left;
+  background-color: blue;
+  width: 15%;
 }
 
-div#page_tale div#right_content div#sound{
- background-color: cyan;
+.active_page{
+  float: left;
+  background-color: gray;
+  width: 70%;
+  overflow: scroll;
+}
+
+.sound{
+  clear: both;
+  position:fixed;
+  bottom: 0px;
+  right: 0px;
+  width: 100%;
+  background-color: cyan;
+  z-index: 20;
 }
 
 

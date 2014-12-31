@@ -8,10 +8,17 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 
         <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css" />
+        <!--<link rel="stylesheet" href="css/jquery.touchpanview.css" />-->
+        <link rel="stylesheet" href="css/easyzoom.css" />
+
         <link rel="stylesheet" href="css/cuentacuentos.css" />
 
         <title>Hello World</title>
         <script type="text/javascript" src="lib/jquery.js"></script>
+
+        <!--<script src="lib/jquery.touchpanview.js"></script>-->
+        <script src="lib/easyzoom.js"></script>
+
     </head>
 
     <body>
@@ -50,21 +57,33 @@
             <div id="tale_header" data-role="header">
             <h1>tale</h1>
             <a href="#page_book" data-transition="slide" >Ver cuentos</a>
-           </div>
-            <div role="main" class="ui-content">
-            <ul id="pages">
-            </ul>
+        </div>
 
-            <div id="right_content">
-                <div id="active_page">
-                    <img id="active_page_img" src="" />
+            <div role="main" class="ui-content">
+
+
+                <div id="right_content">
+
+
+                    <ul id="pages">
+                    </ul>
+
+
+                    <!--<img id="active_page_img" width="1024" height="768" alt="beatles" src="beatles.jpg" style="width: 1024px; height: 768px;">-->
+
+                    <div class="active_page">
+                            <img id="active_page_img" src="images/standard.jpg" alt="" />
+
+                    </div>
+
+                    <div id="sound">
+                        <audio src="" controls loop>
+                            HTML5 audio not supported
+                        </audio>
+                    </div>
+
                 </div>
-                <div id="sound">
-                     <audio src="" controls loop>
-                    HTML5 audio not supported
-                    </audio>
-                </div>
-            </div>
+
           </div>
         </div>
 

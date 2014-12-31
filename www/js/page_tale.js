@@ -46,7 +46,6 @@ var PageTale = (function(){
 
     this.view_page(this.current_tale.pageini);
 
-
     $(":mobile-pagecontainer").pagecontainer("change", "#page_tale", { role: "page" , transition:"flip"});
   };
 
@@ -57,6 +56,32 @@ var PageTale = (function(){
      var $active_page_img = $page.find("img#active_page_img");
      var pagepath = this.current_book.get_page_path(page);
     $active_page_img.attr("src", pagepath);
+
+    var w = Math.floor(0.7*screen.width);
+    var h = Math.floor(0.9*screen.height);
+
+    var $content = $page.find(".active_page");
+
+    console.log("content: ",w, h);
+
+    $content.attr("width", w);
+    $content.attr("height", h);
+
+    //$active_page_img.width(w);
+    //$active_page_img.width(h);
+
+    /*$active_page_img.touchPanView({
+	      width: w,
+	      height: h
+      });
+
+    //override dims on dynamic container.. it starts at 0,0
+    var $container = $page.find(".touchpanview-wrap");
+    $container.width(w);
+    $container.height(h);
+    */
+
+
 
   };
 
