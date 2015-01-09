@@ -20,7 +20,6 @@ var Cuentacuentos  = (function(){
 	*/
   Cuentacuentos.init = function(data){
 
-    console.log("data init");
     Cuentacuentos._parse_books(data);
       Cuentacuentos._parse_tales(data);
 
