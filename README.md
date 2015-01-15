@@ -134,3 +134,11 @@ el emulador se puede dejar corriendo, cada vez que se ejecuta "cordova emulate a
 el comando adb tambien se puede activar en cualquier momento.
 
 ----
+
+
+----
+visualizacion de una imagen muy grande, con pan y zoom:
+
+para esto probé diferente plugins, pero al final utilizé leafleat, que aunque es para mapas se puede configurar para que tome como mapa una sola imagen:
+
+http://kempe.net/blog/2014/06/14/leaflet-pan-zoom-image.html

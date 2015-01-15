@@ -67,19 +67,7 @@ var PageTale = (function(){
     $content.attr("width", w);
     $content.attr("height", h);
 
-    //$active_page_img.width(w);
-    //$active_page_img.width(h);
 
-    /*$active_page_img.touchPanView({
-	      width: w,
-	      height: h
-      });
-
-    //override dims on dynamic container.. it starts at 0,0
-    var $container = $page.find(".touchpanview-wrap");
-    $container.width(w);
-    $container.height(h);
-    */
 
 
 
