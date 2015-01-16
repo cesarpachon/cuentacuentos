@@ -43,15 +43,17 @@ var PageBook = (function(){
   */
   pageBook.prototype.append_tale = function($tales, tale){
 
+    app.getPicture(this.current_book.get_page_pic_path(tale.pageini), function(w, h, imgdata){
     var _tale = "<li class='book' id='"
       +tale.id+"'>"
-      +"<img src='"+this.current_book.get_page_pic_path(tale.pageini)+"'>"
+      +"<img src='"+imgdata+"'>"
       +"<p>"+tale.title+"</p>"
       +"</li>";
     var $tale = $(_tale);
     $tales.append($tale);
     $tale.fadeIn(Math.floor(Math.random()*1000));
     //$tale.delay(Math.floor(Math.random()*2000)).fadeIn(Math.floor(Math.random()*1000));
+    });
 
   };
 

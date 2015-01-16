@@ -1,6 +1,10 @@
 var PageTale = (function(){
   "use strict";
 
+
+  var _map = null;
+  var _layer = null;
+
   /**
   * @constructor
   */
@@ -11,7 +15,7 @@ var PageTale = (function(){
     var self = this;
     $("#page_tale").on("click", ".book", function(ev){
       self.view_page(ev.currentTarget.id);
-  });
+    });
 
   };
 
@@ -50,28 +54,57 @@ var PageTale = (function(){
   };
 
 
+  /**
+  *
+  */
   pageTale.prototype.view_page = function(page){
 
-     var $page = $("#page_tale");
-     var $active_page_img = $page.find("img#active_page_img");
-     var pagepath = this.current_book.get_page_path(page);
-    $active_page_img.attr("src", pagepath);
+    var $page = $("#page_tale");
+    var $container = $page.find(".active_page");
+    $container.css("height", Math.floor(screen.height*0.8)+"px"/*$page.css("height")*/);
 
-    var w = Math.floor(0.7*screen.width);
-    var h = Math.floor(0.9*screen.height);
-
-    var $content = $page.find(".active_page");
-
-    console.log("content: ",w, h);
-
-    $content.attr("width", w);
-    $content.attr("height", h);
-
-
-
-
+    var self = this;
+    app.getPicture(this.current_book.get_page_path(page), function(w, h, imgdata){
+      self.init_leaf(w, h, imgdata);
+    });
 
   };
+
+  /**
+  *
+  */
+  pageTale.prototype.init_leaf = function(w, h, url){
+
+    if(!_map){
+      // create the slippy map
+      _map = L.map('image-map', {
+        minZoom: 1,
+        maxZoom: 4,
+        center: [0, 0],
+        zoom: 1,
+        crs: L.CRS.Simple,
+      });
+    }
+
+
+    // calculate the edges of the image, in coordinate space
+    var southWest = _map.unproject([0, h], _map.getMaxZoom()-1);
+    var northEast = _map.unproject([w, 0], _map.getMaxZoom()-1);
+    var bounds = new L.LatLngBounds(southWest, northEast);
+
+    // add the image overlay,
+    // so that it covers the entire map
+
+    if(_layer){
+      _map.removeLayer(_layer);
+    }
+
+    _layer = L.imageOverlay(url, bounds).addTo(_map);
+
+    // tell leaflet that the map is exactly as big as the image
+    _map.setMaxBounds(bounds);
+  };
+
 
 
   /**
@@ -79,9 +112,9 @@ var PageTale = (function(){
   */
   pageTale.prototype.append_page = function($pages, page){
     var _page = "<li class='book' id='"
-      +page+"'>"
-      +"<img src='"+this.current_book.get_page_pic_path(page)+"'>"
-      +"</li>";
+    +page+"'>"
+    +"<img src='"+this.current_book.get_page_pic_path(page)+"'>"
+    +"</li>";
     var $page = $(_page);
     $pages.append($page);
     $page.delay(Math.floor(this.current_tale.get_page_progress(page)*2000)).fadeIn(500);
@@ -91,9 +124,9 @@ var PageTale = (function(){
   *
   */
   pageTale.prototype.load_audio  = function(){
-     var $page = $("#page_tale");
-     var $audio = $page.find("audio");
-     var audiopath = this.current_book.get_audio_path(this.current_tale);
+    var $page = $("#page_tale");
+    var $audio = $page.find("audio");
+    var audiopath = this.current_book.get_audio_path(this.current_tale);
     console.log("audiopath:", audiopath);
     $audio.attr("src", audiopath);
   };

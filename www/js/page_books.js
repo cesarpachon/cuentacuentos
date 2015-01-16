@@ -37,7 +37,7 @@ var PageBooks = (function(){
   */
   pageBooks.prototype.append_book = function($books, book){
     console.log("pageBooks.append_book "+ book.id);
-    app.getResource(book.get_page_pic_path(0), function(imgdata){
+    app.getPicture(book.get_page_pic_path(0), function(w, h, imgdata){
       console.log("pageBooks.append_book "+ book.id + " loaded!");
       var _book = "<li class='book' id='"
         +book.id+"'>"

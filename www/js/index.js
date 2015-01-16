@@ -2,103 +2,140 @@ var app = {
 
   filesystem: null,
 
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-       app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
+  // Application Constructor
+  initialize: function() {
+    this.bindEvents();
+  },
+  // Bind Event Listeners
+  //
+  // Bind any events that are required on startup. Common events are:
+  // 'load', 'deviceready', 'offline', and 'online'.
+  bindEvents: function() {
+    document.addEventListener('deviceready', this.onDeviceReady, false);
+  },
+  // deviceready Event Handler
+  //
+  // The scope of 'this' is the event. In order to call the 'receivedEvent'
+  // function, we must explicitly call 'app.receivedEvent(...);'
+  onDeviceReady: function() {
+    app.receivedEvent('deviceready');
+  },
+  // Update DOM on a Received Event
+  receivedEvent: function(id) {
 
-      var self = this;
+    var self = this;
 
-      //data may come as jquery ajax call or from the device external storage system..
+    //data may come as jquery ajax call or from the device external storage system..
 
-      var data;
-      var datapath = "cuentacuentos/cuentacuentos.json";
+    var data;
+    var datapath = "cuentacuentos/cuentacuentos.json";
 
-      _log("before querying filesystem");
+    _log("before querying filesystem");
 
-      window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+    window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
 
 
 
-     function onFail(message) {
+    function onFail(message) {
       _log('Failed because: ' + message);
     }
 
-       function gotFS(fileSystem) {
-         self.filesystem = fileSystem;
-         _log("gotFs ..", fileSystem);
-        self.filesystem.root.getFile(datapath, {create: false}, gotFileEntry, fail);
+    function gotFS(fileSystem) {
+      self.filesystem = fileSystem;
+      _log("gotFs ..", fileSystem);
+      self.filesystem.root.getFile(datapath, {create: false}, gotFileEntry, fail);
     }
 
-       function gotFileEntry(fileEntry) {
-         _log("gotFileEntry ..", fileEntry);
-        fileEntry.file(gotFile, fail);
+    function gotFileEntry(fileEntry) {
+      _log("gotFileEntry ..", fileEntry);
+      fileEntry.file(gotFile, fail);
     }
 
-        function gotFile(file){
-         _log("gotFile .." + file);
-        readDataUrl(file);
+    function gotFile(file){
+      _log("gotFile .." + file);
+      readDataUrl(file);
     }
 
-        function readDataUrl(file) {
-         _log("readDataUrl .." + file);
-           var reader = new FileReader();
-           reader.onloadend = function(evt) {
-           _log("Read as data URL");
-           //_log(evt.target.result);
-            Cuentacuentos.init(JSON.parse(evt.target.result));
-        };
-        reader.readAsText(file);
+    function readDataUrl(file) {
+      _log("readDataUrl .." + file);
+      var reader = new FileReader();
+      reader.onloadend = function(evt) {
+        _log("Read as data URL");
+        //_log(evt.target.result);
+        Cuentacuentos.init(JSON.parse(evt.target.result));
+      };
+      reader.readAsText(file);
     }
 
     function fail(evt) {
-        _log(evt.target.error.code);
+      _log(evt.target.error.code);
     }
 
-      window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, onFail);
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, onFail);
 
-    },
+  },
 
   /**
-  * returns the dataasURL of the given resource. (it is the binary content of the file as a encoded string)
-  it  this.filesystem is not  initializated, assumes it is in browser mode and return the url passed as input.
+  * returns the width, height and dataasURL of the given resource (picture) through a callback.
+  * (it is the binary content of the file as a encoded string)
+  it  this.filesystem is not  initializated, load the picture using a Image object and extract the encoded content
   */
-  getResource: function(url, cbdone){
+  getPicture: function(url, cbdone){
 
-    console.log("index.js getResource "+ url);
+    _log("app.getPicture: getResource "+ url);
 
     function _error(evt){_log(JSON.stringify(evt));};
 
     if(!this.filesystem){
-      cbdone(url);
-      return;
+      _log("app.getPicture: no filesystem. loading from relative url as Image");
+
+      var img = new Image();
+      img.onload = function(){
+
+        var canvas = document.createElement('CANVAS');
+        var ctx = canvas.getContext('2d');
+        canvas.height = this.height;
+        canvas.width = this.width;
+        ctx.drawImage(this, 0, 0);
+        var dataURL = canvas.toDataURL("image/jpg");
+        canvas = null;
+
+        _log("app.getPicture: got ", this.width, this.height, dataURL);
+
+        cbdone(this.width, this.height, dataURL);
+      };
+
+      img.src = url;
+
+    }
+    else{
+      _log("app.getPicture:  loading from filesystem ", url);
+
+      this.filesystem.root.getFile(url, {create: false}, function(entry){
+        _log("app.getPicture:  loading from filesystem, got entry ", entry);
+
+        entry.file(function(file){
+          _log("app.getPicture:  loading from filesystem, got entry.file ", entry.file);
+
+          var reader = new FileReader();
+          reader.onloadend = function(evt){
+            _log("app.getPicture:  loading from filesystem, got reader evt ", evt);
+
+            //todo: how to get the width and height?
+            var img = new Image();
+            img.onload = function(){
+              _log("app.getPicture: trying to extract w,h from encoded image");
+              cbdone(this.width, this.height, evt.target.result);
+            }
+            img.src = evt.target.result;
+          }
+          reader.readAsDataURL(file);
+        }, _error);
+      }, _error);
     }
 
-    this.filesystem.root.getFile(url, {create: false}, function(entry){
-      entry.file(function(file){
-        var reader = new FileReader();
-        reader.onloadend = function(evt){
-          cbdone(evt.target.result);
-        }
-        reader.readAsDataURL(file);
-      }, _error);
-    }, _error);
+
+
   }
 
 };
@@ -139,7 +176,7 @@ $(document).bind("mobileinit", function(ev) {
     beforetransition: function( event, ui ) {console.log("beforechange"+ JSON.stringify(ui));},
     change: function( event, ui ) {console.log("beforechange"+ JSON.stringify(ui));},
     changefailed: function( event, ui ) {console.log("beforechange"+ JSON.stringify(ui));}
-    });
+  });
 
 
   app.page_books = new PageBooks();
@@ -155,7 +192,7 @@ $(document).bind("mobileinit", function(ev) {
 
   $( "#page_books" ).pagecontainer({
     load: function( event, ui ) {
-     _log(" books loaded!" );
+      _log(" books loaded!" );
     }
   });
 
@@ -169,7 +206,7 @@ var _logbuffer = "";
 */
 _log  = function(msg){
   console.log(msg);
-  //_logbuffer += "<p>"+msg+"</p>";
-  //$("div#log").html(_logbuffer);
+  _logbuffer += "<p>"+msg+"</p>";
+  $("div#log").html(_logbuffer);
 };
 

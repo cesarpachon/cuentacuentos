@@ -5,7 +5,7 @@
 <style>
 #image-map {
   width: 100%;
-  height: 300px;
+  height: 100%;
   border: 1px solid #ccc;
   margin-bottom: 10px;
 }
@@ -39,6 +39,7 @@ img.onload = function(){
     canvas.width = this.width;
     ctx.drawImage(this, 0, 0);
     var dataURL = canvas.toDataURL("image/jpg");
+    canvas = null;
 
     //now, init the leaf stuff
     init_leaf(this.width, this.height, dataURL);
