@@ -1,0 +1,79 @@
+<html>
+
+<head>
+
+<style>
+#image-map {
+  width: 100%;
+  height: 300px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+</style>
+
+<link rel="stylesheet" href="css/leaflet.css" />
+<script type="text/javascript" src="lib/leaflet.js"></script>
+
+</head>
+<body>
+
+
+
+
+ <div id="image-map"></div>
+
+<script>
+
+
+var img = new Image();
+
+img.onload = function(){
+
+    console.log("image was loaded!", this.width, this.height);
+
+    //here, the url is the relative path (when working on http mode.. so we need to convert to base64 using a canvas
+
+    var canvas = document.createElement('CANVAS');
+    var ctx = canvas.getContext('2d');
+    canvas.height = this.height;
+    canvas.width = this.width;
+    ctx.drawImage(this, 0, 0);
+    var dataURL = canvas.toDataURL("image/jpg");
+
+    //now, init the leaf stuff
+    init_leaf(this.width, this.height, dataURL);
+
+};
+
+img.src = 'cuentacuentos/cuentacuentos01/cuentacuentos01-000.jpg';
+
+
+function init_leaf(w, h, url){
+
+    // create the slippy map
+    var map = L.map('image-map', {
+        minZoom: 1,
+        maxZoom: 4,
+        center: [0, 0],
+        zoom: 1,
+        crs: L.CRS.Simple,
+    });
+
+    // calculate the edges of the image, in coordinate space
+    var southWest = map.unproject([0, h], map.getMaxZoom()-1);
+    var northEast = map.unproject([w, 0], map.getMaxZoom()-1);
+    var bounds = new L.LatLngBounds(southWest, northEast);
+
+    // add the image overlay,
+    // so that it covers the entire map
+    L.imageOverlay(url, bounds).addTo(map);
+
+    // tell leaflet that the map is exactly as big as the image
+    map.setMaxBounds(bounds);
+}
+
+
+    </script>
+    </body>
+
+</html>
