@@ -26,7 +26,7 @@ var PageTale = (function(){
   *@params taleid {string} id of the tale to show
   */
   pageTale.prototype.on_cmd_show_tale = function(book, taleid){
-
+    _clearlog();
     this.current_book = book;
     this.current_tale = book.get_tale(taleid);
 
@@ -64,7 +64,7 @@ var PageTale = (function(){
     $container.css("height", Math.floor(screen.height*0.8)+"px"/*$page.css("height")*/);
 
     var self = this;
-    app.getPicture(this.current_book.get_page_path(page), function(w, h, imgdata){
+    app.getPictureSlow(this.current_book.get_page_path(page), function(w, h, imgdata){
       self.init_leaf(w, h, imgdata);
     });
 
@@ -111,27 +111,43 @@ var PageTale = (function(){
   *
   */
   pageTale.prototype.append_page = function($pages, page){
-    var _page = "<li class='book' id='"
-    +page+"'>"
-    +"<img src='"+this.current_book.get_page_pic_path(page)+"'>"
-    +"</li>";
-    var $page = $(_page);
-    $pages.append($page);
-    $page.delay(Math.floor(this.current_tale.get_page_progress(page)*2000)).fadeIn(500);
+    var self = this;
+    app.getPictureFast(this.current_book.get_page_pic_path(page), function(imgdata){
+      var _page = "<li class='book' id='"
+      +page+"'>"
+      +"<img src='"+imgdata+"'>"
+      +"</li>";
+      var $page = $(_page);
+      $pages.append($page);
+      //$page.fadeIn(500);
+    });
   };
 
   /**
   *
   */
   pageTale.prototype.load_audio  = function(){
-    var $page = $("#page_tale");
-    var $audio = $page.find("audio");
-    var audiopath = this.current_book.get_audio_path(this.current_tale);
-    console.log("audiopath:", audiopath);
-    $audio.attr("src", audiopath);
+
+
+    app.getSound(this.current_book.get_audio_path(this.current_tale), function(audiodata){
+      var $page = $("#page_tale");
+      var $audio = $page.find("div#sound");
+      _log($audio);
+      $audio.empty();
+      _log("adding audio tag with src "+ audiodata);
+
+      var au = new Audio(audiodata);
+      au.controls = true;
+      $audio.append(au);
+
+      //$audio.add("<audio src='"+audiodata+"' controls>HTML5 audio not supported</audio>");
+
+      //$audio.attr("src", audiodata);
+      //$audio.attr("src", "data:audio/mp3;base64,"+audiodata);
+      //$audio.attr("type", "type/mp3");
+    });
   };
 
+    return pageTale;
 
-  return pageTale;
-
-})($);
+  })($);

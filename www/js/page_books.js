@@ -18,6 +18,7 @@ var PageBooks = (function(){
   * populate the books covers with an animation
   */
   pageBooks.prototype.enter = function(){
+    _clearlog();
     var $page = $("#page_books");
     var $books = $page.find("#books");
     $books.empty();
@@ -37,7 +38,7 @@ var PageBooks = (function(){
   */
   pageBooks.prototype.append_book = function($books, book){
     console.log("pageBooks.append_book "+ book.id);
-    app.getPicture(book.get_page_pic_path(0), function(w, h, imgdata){
+    app.getPictureFast(book.get_page_pic_path(0), function(imgdata){
       console.log("pageBooks.append_book "+ book.id + " loaded!");
       var _book = "<li class='book' id='"
         +book.id+"'>"
@@ -46,7 +47,6 @@ var PageBooks = (function(){
         +"</li>";
       var $book = $(_book);
       $books.append($book);
-      $book.fadeIn(Math.floor(Math.random()*1000));
     });
   };
 

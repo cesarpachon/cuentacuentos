@@ -19,6 +19,7 @@ var PageBook = (function(){
   * populate the books covers with an animation
   */
   pageBook.prototype.on_cmd_show_book = function(bookid){
+    _clearlog();
     console.log("PageBook on_cmd_show_book " + bookid);
     var $page = $("#page_book");
     var $tales = $page.find("#tales");
@@ -43,7 +44,7 @@ var PageBook = (function(){
   */
   pageBook.prototype.append_tale = function($tales, tale){
 
-    app.getPicture(this.current_book.get_page_pic_path(tale.pageini), function(w, h, imgdata){
+    app.getPictureFast(this.current_book.get_page_pic_path(tale.pageini), function(imgdata){
     var _tale = "<li class='book' id='"
       +tale.id+"'>"
       +"<img src='"+imgdata+"'>"
@@ -51,8 +52,6 @@ var PageBook = (function(){
       +"</li>";
     var $tale = $(_tale);
     $tales.append($tale);
-    $tale.fadeIn(Math.floor(Math.random()*1000));
-    //$tale.delay(Math.floor(Math.random()*2000)).fadeIn(Math.floor(Math.random()*1000));
     });
 
   };
