@@ -54,3 +54,9 @@ li {
   padding: 0px;
   list-style-type:none;
 }
+
+.control_panel{
+  width: 100%;
+  height: 10%;
+  display: none;
+}

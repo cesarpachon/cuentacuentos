@@ -13,12 +13,24 @@ var PageTale = (function(){
     this.current_book = null;
 
     var self = this;
-    $("#page_tale").on("click", ".book", function(ev){
+    var $page = $("#page_tale");
+
+    $page.on("click", ".book", function(ev){
       self.view_page(ev.currentTarget.id);
     });
 
-    $("#page_tale").on("click", ".next", function(ev){
+    $page.on("click", ".next", function(ev){
       self.view_next();
+    });
+
+    $page.on("click", ".control_panel_show", function(ev){
+      $page.find(".control_panel_show").hide(200);
+      $page.find(".control_panel").show(200);
+    });
+
+    $page.on("click", ".control_panel_close", function(ev){
+      $page.find(".control_panel_show").show(200);
+      $page.find(".control_panel").hide(200);
     });
 
 
@@ -47,9 +59,7 @@ var PageTale = (function(){
       this.append_page($pages, i);
     };
 
-    if(this.current_tale.next){
-      $pages.append("<li class='next' >Continúa!</li>");
-    };
+    $pages.find(".next").css("display", this.current_tale.next?"block":"none");
 
     this.load_audio();
 
