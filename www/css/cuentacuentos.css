@@ -37,3 +37,13 @@ div#page_tale ul#pages li {
 .book p {
 
 }
+
+
+li {
+  -moz-box-shadow: 3px 5px 20px #000000;
+  -webkit-box-shadow: 3px 5px 20px #000000;
+  box-shadow: 3px 5px 20px #000000;
+  margin: 0px;
+  padding: 0px;
+  list-style-type:none;
+}
