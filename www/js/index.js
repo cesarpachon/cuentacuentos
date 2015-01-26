@@ -153,12 +153,15 @@ var app = {
 
     function _error(evt){_log(JSON.stringify(evt));};
 
-     _log("app.getPictureFast: getResource "+cordova.file.externalRootDirectory + url);
-
-    window.resolveLocalFileSystemURL( cordova.file.externalRootDirectory + url, function(fileEntry){
-       _log("app.getPictureFast:  got filesystem "+ JSON.stringify(fileEntry));
-      cbdone(fileEntry.nativeURL);
-    }, _error);
+    if(window.cordova){
+      _log("app.getPictureFast: getResource "+cordova.file.externalRootDirectory + url);
+      window.resolveLocalFileSystemURL( cordova.file.externalRootDirectory + url, function(fileEntry){
+        _log("app.getPictureFast:  got filesystem "+ JSON.stringify(fileEntry));
+        cbdone(fileEntry.nativeURL);
+      }, _error);
+    }else{
+      cbdone(url);
+    }
 
   },
 
@@ -219,15 +222,16 @@ var app = {
   getSound: function(url, cbdone){
 
 
-     function _error(evt){_log(JSON.stringify(evt));};
+    function _error(evt){_log(JSON.stringify(evt));};
 
     //solves to: file:///storage/sdcard/cuentacuentos/cuentacuentos01/gobolino01.mp3
 
 
-    _log("app.getSound: getResource "+cordova.file.externalRootDirectory + url);
+    if(window.cordova){
+      _log("app.getSound: getResource "+cordova.file.externalRootDirectory + url);
 
     window.resolveLocalFileSystemURL( cordova.file.externalRootDirectory + url, function(fileEntry){
-       _log("app.getSound:  got filesystem "+ JSON.stringify(fileEntry));
+      _log("app.getSound:  got filesystem "+ JSON.stringify(fileEntry));
       cbdone(fileEntry.nativeURL);
       /*var my_media = new Media(fileEntry.localURL, function(){
         _log("success!");
@@ -236,11 +240,9 @@ var app = {
       my_media.play();
       */
     }, _error);
-
-
-
-
-
+    }else{
+      cbdone(url);
+    }
 
   }
 

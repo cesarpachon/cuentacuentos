@@ -17,6 +17,11 @@ var PageTale = (function(){
       self.view_page(ev.currentTarget.id);
     });
 
+    $("#page_tale").on("click", ".next", function(ev){
+      self.view_next();
+    });
+
+
   };
 
 
@@ -69,6 +74,17 @@ var PageTale = (function(){
     });
 
   };
+
+  /**
+  *
+  */
+  pageTale.prototype.view_next = function(){
+    console.log("next: ", this.current_tale.next);
+    var next = this.current_tale.next;
+    var book = Cuentacuentos.get_book_by_tale(next);
+    this.on_cmd_show_tale(book, next);
+  };
+
 
   /**
   *

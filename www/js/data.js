@@ -36,6 +36,25 @@ var Cuentacuentos  = (function(){
   };
 
 
+
+  /**
+  * given a taleid, find the book object that contains it
+  */
+  Cuentacuentos.get_book_by_tale = function(taleid){
+    var _book = null;
+
+
+    Cuentacuentos.books.forEach(function(book){
+      book.tales.forEach(function(tale){
+        if(tale.id === taleid){
+          _book = book;
+        }
+      });
+    });
+    return _book;
+  };
+
+
   //-- private functions ---
 
   /**

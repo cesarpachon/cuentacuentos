@@ -39,6 +39,13 @@ div#page_tale ul#pages li {
 }
 
 
+.next {
+  background-color: lightgreen;
+  float: left;
+  margin: 5px;
+}
+
+
 li {
   -moz-box-shadow: 3px 5px 20px #000000;
   -webkit-box-shadow: 3px 5px 20px #000000;
