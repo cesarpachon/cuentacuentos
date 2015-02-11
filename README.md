@@ -77,6 +77,8 @@ para ejecutar el emulador:
 
 cordova emulate android
 
+--target=emulator_name
+
 problema: tuve que instalar ANT, por apt-get, y agregar ANT_HOME al .bashrc (no se para que si esta en usr/bin)
 
 otro problema: parece que requiere algunas librerias de x32:
